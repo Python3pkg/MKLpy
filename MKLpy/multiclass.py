@@ -26,7 +26,7 @@ class OneVsOneMKLClassifier():
         return {}
 
     def set_params(self, **parameters):
-        for parameter, value in parameters.items():
+        for parameter, value in list(parameters.items()):
             setattr(self,parameter,value)
         return self
     
@@ -62,11 +62,11 @@ class OneVsOneMKLClassifier():
             list_of_labels[dicho] = [1.0]*len(list_of_indices[dicho][0]) + [-1.0]*len(list_of_indices[dicho][1])
             list_of_labels_train[dicho] = [1.0]*len(list_of_indices_train[dicho][0]) + [-1.0]*len(list_of_indices_train[dicho][1])
             if self.verbose:
-                print dicho[0],'vs',dicho[1],'->',len(list_of_indices[dicho][0]),'+1 vs',len(list_of_indices[dicho][1]),'-1'
+                print(dicho[0],'vs',dicho[1],'->',len(list_of_indices[dicho][0]),'+1 vs',len(list_of_indices[dicho][1]),'-1')
                 sys.stdout.flush()
 
         if self.verbose:
-            print 'Learning the models for the',len(list_of_dichos),'dichotomies'
+            print('Learning the models for the',len(list_of_dichos),'dichotomies')
         # LEARNING THE MODELS
         wmodels = {}
         combinations = {}
@@ -82,8 +82,8 @@ class OneVsOneMKLClassifier():
                        np.array(list_of_labels_train[dicho]))
             wmodels[dicho] = [w / sum(cc.weights) for w in cc.weights]#da sistemare per astrarre
             if self.verbose:
-                print 'Model generated for the dichotomy:',dicho[0],'vs',dicho[1]
-                print 'Weights:',len(cc.weights),sum(cc.weights),cc.weights
+                print('Model generated for the dichotomy:',dicho[0],'vs',dicho[1])
+                print('Weights:',len(cc.weights),sum(cc.weights),cc.weights)
                 sys.stdout.flush()
             combinations[dicho] = ker_matrix#cc.ker_matrix
             del cc
@@ -91,7 +91,7 @@ class OneVsOneMKLClassifier():
         self.kernels = combinations #mi serve solo per alcuni test
         # Train SVM
         if self.verbose:
-            print 'SVM training phase...'
+            print('SVM training phase...')
         
         svcs = {}
         for dicho in list_of_dichos:
@@ -166,7 +166,7 @@ class OneVsOneMKLClassifier():
             #single_accuracy[dicho] = accuracy_score([1.0 if i in dicho[0] else -1.0 for i in Y_te], list(predicts[dicho]))
             single_accuracy[dicho] = roc_auc_score([1.0 if i in dicho[0] else -1.0 for i in Y_te], list(predicts[dicho]))
             if self.verbose or True:
-                print 'Accuracy test:',single_accuracy[dicho]
+                print('Accuracy test:',single_accuracy[dicho])
                 #print accuracy_score([1.0 if i in dicho[0] else -1.0 for i in Y_te], list(predicts[dicho]), normalize=False),'/',len(Y_te)
         return single_accuracy
         

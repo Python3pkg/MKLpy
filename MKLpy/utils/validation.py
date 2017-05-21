@@ -78,7 +78,7 @@ def check_K_Y(K,Y):
     return K,np.array(Y)
 
 def check_X_T(X,T):
-    T = X if type(T) == types.NoneType else T
+    T = X if type(T) == type(None) else T
     if X.shape[1] != T.shape[1]:
         raise ValueError("X and T have different features")
     return X,T

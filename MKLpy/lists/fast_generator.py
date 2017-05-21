@@ -26,7 +26,7 @@ def fast_linearSFK(X, T=None, l=50, f=None, func='rbf'):
     if f==None:
         f = int(max(2,sqrt(X.shape[1])/2.0))
     
-    feature_list = [random.choice(range(0,X.shape[1])) for i in range(f)]
+    feature_list = [random.choice(list(range(0,X.shape[1]))) for i in range(f)]
     nonused = [i for i in range(X.shape[1]) if i not in feature_list]
     k = linear_kernel(T[:,feature_list],X[:,feature_list])
     klist = [k]

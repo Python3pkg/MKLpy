@@ -10,6 +10,6 @@ and MKL algorithm
 
 """
 
-from stuff import *
+from .stuff import *
 
 __all__ = ['UCI']

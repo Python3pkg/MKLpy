@@ -28,7 +28,7 @@ X,Y = data.data,data.target
 Y = np.array([1 if _y==Y[1] else -1 for _y in Y])
 #Y = np.array([1 if _y < 5 else -1 for _y in Y])
 n = X.shape[0]
-y = np.array(range(n))
+y = np.array(list(range(n)))
 KL = HPK_generator(X).make_a_list(10).to_array()
 
 

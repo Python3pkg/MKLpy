@@ -1,7 +1,7 @@
 from sklearn.metrics import accuracy_score,roc_auc_score
 from sklearn.model_selection import StratifiedKFold as KFold
 import numpy as np
-from splits import cv3
+from .splits import cv3
 
 
 def __def_score__(score):

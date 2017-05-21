@@ -40,7 +40,7 @@ def summation (K_list, weights = None):
         
     K = np.zeros(K_list[0].shape, dtype = np.double)
     l = len(K_list)
-    weights = np.ones(l, dtype = np.double) if type(weights) == types.NoneType else weights
+    weights = np.ones(l, dtype = np.double) if type(weights) == type(None) else weights
     for w,ker in zip(weights, K_list):
         K += w * ker
     return K
@@ -70,7 +70,7 @@ def multiplication (K_list, weights = None):
     """
     K = np.ones(K_list[0].shape, dtype = np.float64)
     l = len(K_list)
-    weights = np.ones(l, dtype = np.double) if type(weights) == types.NoneType else weights
+    weights = np.ones(l, dtype = np.double) if type(weights) == type(None) else weights
     for w,ker in zip(weights, K_list):
         K *= w * ker
     return K
@@ -99,7 +99,7 @@ def average (K_list, weights = None):
     >>> Kwsum   = mean(Klist,weights)
     """
     l = len(K_list)
-    weights = np.ones(l, dtype = np.double) if type(weights) == types.NoneType else weights
+    weights = np.ones(l, dtype = np.double) if type(weights) == type(None) else weights
     K = summation(K_list, weights)
     K /= np.sum(weights)
     return K

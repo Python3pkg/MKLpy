@@ -9,7 +9,7 @@ by Fabio Aiolli and Michele Donini
 Paper @ http://www.math.unipd.it/~mdonini/publications.html
 """
 from sklearn.base import BaseEstimator, ClassifierMixin
-from base import MKL
+from .base import MKL
 from sklearn.utils import check_array, check_consistent_length#, check_random_state
 from sklearn.utils import column_or_1d, check_X_y
 from sklearn.utils import validation
@@ -88,10 +88,10 @@ class EasyMKL(BaseEstimator, ClassifierMixin, MKL):
         sol = solvers.qp(Q,p,G,h,A,b)
         self.gamma = sol['x']
         if self.verbose:
-            print '[EasyMKL] - first step'
-            print 'optimization finished, #iter = ', sol['iterations']
-            print 'status of the solution: ', sol['status']
-            print 'objval: ', sol['primal objective']
+            print('[EasyMKL] - first step')
+            print('optimization finished, #iter = ', sol['iterations'])
+            print('status of the solution: ', sol['status'])
+            print('objval: ', sol['primal objective'])
          
         # Bias for classification:
         #bias = 0.5 * self.gamma.T * ker_matrix * YY * self.gamma
@@ -153,10 +153,10 @@ class EasyMKL(BaseEstimator, ClassifierMixin, MKL):
         sol = solvers.qp(Q,p,G,h,A,b)
         self.gamma = sol['x']
         if self.verbose:
-            print '[EasyMKL] - second step'
-            print 'optimization finished, #iter = ', sol['iterations']
-            print 'status of the solution: ', sol['status']
-            print 'objval: ', sol['primal objective']
+            print('[EasyMKL] - second step')
+            print('optimization finished, #iter = ', sol['iterations'])
+            print('status of the solution: ', sol['status'])
+            print('objval: ', sol['primal objective'])
         self.is_fitted = True
         bias = 0.5 * self.gamma.T * ker_matrix * YY * self.gamma
         self.bias = bias
@@ -209,7 +209,7 @@ class EasyMKL(BaseEstimator, ClassifierMixin, MKL):
                 "verbose":self.verbose, "multiclass_strategy":self.multiclass_strategy}
  
     def set_params(self, **parameters):
-        for parameter, value in parameters.items():
+        for parameter, value in list(parameters.items()):
             setattr(self,parameter,value)
         return self
      

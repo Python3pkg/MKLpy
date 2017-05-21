@@ -46,9 +46,9 @@ class BaseSearchCV(skbs):
         self.n_splits_       = self.cv.n_splits_
         
         if self.verbose:
-            print "tuning params, %d combinations" % (len(params_mkl)) if self.autoclassifier else \
-                  "tuning params, %d x %d combinations considering MKL and base learner" % (len(params_mkl), len(params_base))
-            print "# folds: %d" % (self.n_splits_)
+            print("tuning params, %d combinations" % (len(params_mkl)) if self.autoclassifier else \
+                  "tuning params, %d x %d combinations considering MKL and base learner" % (len(params_mkl), len(params_base)))
+            print("# folds: %d" % (self.n_splits_))
             
             
         if self.auto_classifier:    #uso solo l'algoritmo di MKL
@@ -77,9 +77,9 @@ class BaseSearchCV(skbs):
                 self.best_index_     = idx
         
         if self.verbose:
-            print "best model:"
-            print "   params:",self.best_params if self.auto_classifier else \
-                  "   params MKL :", self.best_params[0],"\n   params base:", self.best_params[1]
+            print("best model:")
+            print("   params:",self.best_params if self.auto_classifier else \
+                  "   params MKL :", self.best_params[0],"\n   params base:", self.best_params[1])
         
         self.cv_results_ = None
         if self.refit:
@@ -88,7 +88,7 @@ class BaseSearchCV(skbs):
             else:
                 Kc = self.best_estimator[0].arrange_kernels(Klist,Y)
                 self.best_estimator[1].fit(Kc,Y)
-            print "refit: done"
+            print("refit: done")
                 
     
     def predict(Kte):

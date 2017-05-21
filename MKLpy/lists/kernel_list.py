@@ -7,7 +7,7 @@ import types
 class kernel_list():
     def __init__(self, X, T=None, k_list=None):
         self.X = X
-        T = X if type(T)==types.NoneType else T
+        T = X if type(T)==type(None) else T
         self.T = T
         self.func_list = []
         self.feat_list = []

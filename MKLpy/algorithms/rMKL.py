@@ -1,5 +1,5 @@
 from sklearn.base import BaseEstimator, ClassifierMixin
-from base import MKL
+from .base import MKL
 from sklearn.utils import check_array, check_consistent_length#, check_random_state
 from sklearn.utils import column_or_1d, check_X_y
 from sklearn.utils import validation

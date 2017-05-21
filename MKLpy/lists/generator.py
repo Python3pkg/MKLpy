@@ -1,18 +1,18 @@
 import random
 import numpy as np
 #from kernel_list import kernel_list as klist
-from kernel_list import kernel_list as klist
+from .kernel_list import kernel_list as klist
 from sklearn.metrics.pairwise import linear_kernel, polynomial_kernel, rbf_kernel
 import types
 
 class generator():
-    def next(self):
+    def __next__(self):
         raise NotImplementedError('not implemented yet')
 
     def make_a_list(self,n):
         k_list = klist(self.X,self.T)
         for i in range(n):
-            k_list.append(*self.next())
+            k_list.append(*next(self))
         return k_list
 
 
@@ -38,28 +38,28 @@ class sequential_generator(generator):
         self.X = X
         self.T = T
         self.p = 1
-        T = X if type(T)==types.NoneType else T
+        T = X if type(T)==type(None) else T
         self.base = linear_kernel(T,X)    
 
 class SFK_generator(weak_generator):
     '''Sample Feature Kernels'''
-    def next(self):
+    def __next__(self):
         random_state = np.random.RandomState()
-        feature_list = [random.choice(range(0,self.f_max)) for i in range(self.n_feature)]
+        feature_list = [random.choice(list(range(0,self.f_max))) for i in range(self.n_feature)]
         return self.func,feature_list
 
 class HPK_generator(sequential_generator):
     '''Homogeneous Polynomial Kernels'''    
-    def next(self):
+    def __next__(self):
         p = self.p
         #f = lambda X,Y: polynomial_kernel(X,Y,degree=p,gamma=1.0,coef0=0.0)
         f = lambda X,Y : self.base**p
         self.p += 1
-        return f, range(len(self.X[0])) 
+        return f, list(range(len(self.X[0]))) 
 
 class SSK_generator(sequential_generator):
     #TODO
-    def next(self):
+    def __next__(self):
         raise NotImplementedError('not implemented yet')
 
 
